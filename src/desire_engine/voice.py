@@ -108,7 +108,7 @@ class VoiceOutput:
     def __init__(
         self,
         rate: int = 150,  # Words per minute (slower than default ~200)
-        use_system_voice: bool = None
+        use_system_voice: bool | None = None
     ):
         """Initialize voice output.
 
@@ -132,7 +132,7 @@ class VoiceOutput:
             voices = self.engine.getProperty('voices')
             if voices:
                 # Try to find a deeper/more neutral voice
-                self.engine.setProperty('voice', voices[0].id)
+                self.engine.setProperty('voice', voices[0].id) # pyright: ignore[reportIndexIssue]
 
     def speak(self, text: str, pause_before: float = 0.5, pause_after: float = 0.3):
         """Speak text with deliberate pacing.

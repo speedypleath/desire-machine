@@ -44,7 +44,7 @@ class VoiceConfig:
 
     # Text-to-speech
     speech_rate: int = 140  # Words per minute (slower = more deliberate)
-    use_system_voice: bool = None  # Auto-detect (macOS uses 'say')
+    use_system_voice: bool | None = None  # Auto-detect (macOS uses 'say')
     pause_before_speech: float = 0.5  # Seconds
     pause_after_speech: float = 0.3  # Seconds
 
@@ -65,9 +65,9 @@ class EngineConfig:
     """Complete configuration for The Desire Engine."""
 
     mode: InstallationMode = InstallationMode.ORACLE
-    thresholds: StateThresholds = None
-    voice: VoiceConfig = None
-    llm: LLMConfig = None
+    thresholds: StateThresholds | None = None
+    voice: VoiceConfig | None = None
+    llm: LLMConfig | None = None
 
     # Session persistence
     save_session: bool = True

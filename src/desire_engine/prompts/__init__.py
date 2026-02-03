@@ -1,0 +1,12 @@
+"""Prompt templates for The Desire Engine."""
+
+from .identity import IDENTITY_ORACLE, IDENTITY_TRIAL, IDENTITY_ASCETIC
+from .system import PARADOX_DEFINITION, BEHAVIORAL_CONSTRAINTS, SYSTEM_PROMPT_TEMPLATE
+from .dialogue import (
+    OPENING_ORACLE,
+    OPENING_TRIAL,
+    OPENING_ASCETIC,
+    REFUSAL_DETACHMENT,
+    REFUSAL_DESIRE,
+    REFUSAL_DEFAULT,
+)

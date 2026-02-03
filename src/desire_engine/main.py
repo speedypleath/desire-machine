@@ -2,6 +2,8 @@
 
 Orchestrates voice I/O, agent responses, and state management.
 """
+# pyright: reportOptionalMemberAccess=false
+# pyright: reportArgumentType=false
 
 import argparse
 import sys
@@ -9,7 +11,7 @@ from pathlib import Path
 
 from .agent import DesireAgent
 from .state import AgentState, InteractionType
-from .config import get_config, InstallationMode
+from .config import get_config
 from .end_states import EndStateDetector
 from .voice import VoiceInput, VoiceOutput
 
@@ -45,7 +47,7 @@ def run_text_mode(mode: str = "oracle", verbose: bool = True):
 
     # Load configuration
     config = get_config(mode)
-    agent = DesireAgent(config.llm, config.mode)
+    agent = DesireAgent(config.llm, config.mode) # pyright: ignore[reportArgumentType]
     detector = EndStateDetector(
         liberation_knowledge=config.thresholds.liberation_knowledge,
         liberation_desire=config.thresholds.liberation_desire,
@@ -59,7 +61,7 @@ def run_text_mode(mode: str = "oracle", verbose: bool = True):
 
     if verbose:
         print(f"\nMode: {mode.upper()}")
-        print(f"State: {state}\n")
+        print(f"[Knowledge: {state.knowledge:.2f}, Desire: {state.desire:.2f}, Detachment: {state.detachment:.2f}]\n")
 
     # Opening statement
     print(agent.generate_opening(state))
@@ -69,7 +71,7 @@ def run_text_mode(mode: str = "oracle", verbose: bool = True):
     try:
         while True:
             if verbose:
-                print(f"\n[{state}]")
+                print(f"\n[Knowledge: {state.knowledge:.2f}, Desire: {state.desire:.2f}, Detachment: {state.detachment:.2f}]")
 
             user_input = input("\nYou: ").strip()
 
@@ -95,9 +97,6 @@ def run_text_mode(mode: str = "oracle", verbose: bool = True):
                 # Generate response
                 response, interaction_type = agent.generate_response(user_input, state)
                 print(f"\nAgent: {response}")
-
-            if verbose:
-                print(f"[Interaction: {interaction_type.value}]")
 
             # Update state
             state.update(interaction_type)
@@ -169,7 +168,7 @@ def run_voice_mode(mode: str = "oracle", verbose: bool = True):
 
     if verbose:
         print(f"\nMode: {mode.upper()}")
-        print(f"State: {state}\n")
+        print(f"[Knowledge: {state.knowledge:.2f}, Desire: {state.desire:.2f}, Detachment: {state.detachment:.2f}]\n")
 
     # Opening statement
     opening = agent.generate_opening(state)
@@ -179,7 +178,7 @@ def run_voice_mode(mode: str = "oracle", verbose: bool = True):
     try:
         while True:
             if verbose:
-                print(f"\n[{state}]")
+                print(f"\n[Knowledge: {state.knowledge:.2f}, Desire: {state.desire:.2f}, Detachment: {state.detachment:.2f}]")
 
             # Listen for input
             user_input = voice_in.listen()
@@ -188,7 +187,6 @@ def run_voice_mode(mode: str = "oracle", verbose: bool = True):
                 # Silence detected
                 print("\n[Extended silence...]")
                 state.record_silence(config.voice.microphone_timeout)
-
                 # Agent may comment on silence
                 if state.detachment > 0.5:
                     voice_out.whisper("Your silence... speaks.")

@@ -213,7 +213,7 @@ class AgentState:
         if max_value < 0.4:
             return "confused"  # All values low
 
-        dominant = max(values, key=values.get)
+        dominant = max(values, key=values.get) # type: ignore
 
         # Check if relatively balanced
         if max_value - min(values.values()) < 0.3:
