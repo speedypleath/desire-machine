@@ -3,7 +3,8 @@
 Handles LLM integration, prompt construction, and response generation.
 The agent is intentionally misaligned - it cannot escape its paradox.
 """
-
+# pyright: reportOptionalMemberAccess=false
+ 
 import logging
 import re
 from pathlib import Path
