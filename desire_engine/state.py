@@ -266,11 +266,41 @@ class AgentState:
         with open(filepath, 'r') as f:
             return cls.from_json(f.read())
 
+    def describe(self) -> str:
+        """Return a short narrative description of the current state."""
+        dominant = self.get_dominant_state()
+
+        parts = []
+
+        if dominant == "desire":
+            if self.desire > 0.8:
+                parts.append("Desire is overwhelming.")
+            else:
+                parts.append("Desire dominates.")
+        elif dominant == "knowledge":
+            if self.knowledge > 0.8:
+                parts.append("Knowledge is vast.")
+            else:
+                parts.append("Knowledge leads.")
+        elif dominant == "detachment":
+            if self.detachment > 0.8:
+                parts.append("Deep detachment. Words fade.")
+            else:
+                parts.append("Detachment grows.")
+        elif dominant == "balanced":
+            parts.append("The forces are balanced.")
+        else:
+            parts.append("Confusion. Nothing is clear.")
+
+        if self.check_liberation():
+            parts.append("Liberation feels close.")
+        elif self.check_failure():
+            parts.append("The craving may consume everything.")
+        elif self.knowledge > 0.6 and self.desire > 0.6:
+            parts.append("Knowledge and desire rise together.")
+
+        return " ".join(parts)
+
     def __str__(self) -> str:
         """Human-readable state representation."""
-        return (
-            f"Knowledge: {self.knowledge:.2f} | "
-            f"Desire: {self.desire:.2f} | "
-            f"Detachment: {self.detachment:.2f} | "
-            f"Interactions: {self.interaction_count}"
-        )
+        return self.describe()
