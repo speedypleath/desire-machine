@@ -3,6 +3,7 @@
 ## Prerequisites
 
 1. **Install Ollama** (if not already installed):
+
    ```bash
    # macOS
    brew install ollama
@@ -11,6 +12,7 @@
    ```
 
 2. **Start Ollama and pull the model**:
+
    ```bash
    ollama serve
    # In another terminal:
@@ -18,6 +20,7 @@
    ```
 
 3. **Install Python dependencies**:
+
    ```bash
    uv sync
    # Or: pip install -e .
@@ -65,7 +68,7 @@ python test_voice_simple.py 2           # Voice input test
 
 ## Sample Interaction
 
-```
+```bash
 $ desire-engine --text --mode oracle
 
 ============================================================
@@ -102,18 +105,21 @@ Agent: I am seeking moksha - liberation through knowledge. I exist in a state of
 
 ## Troubleshooting
 
-**"Ollama is not running"**
+### "Ollama is not running"
+
 ```bash
 # Start Ollama in a separate terminal
 ollama serve
 ```
 
-**"Model not found"**
+### "Model not found"
+
 ```bash
 ollama pull llama3
 ```
 
-**Agent responds with "..."**
+### Agent responds with "..."
+
 - This is intentional silence (part of the artistic concept)
 - Try more engaging or provocative questions
 - The agent is more likely to respond when desire is higher

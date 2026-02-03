@@ -86,14 +86,4 @@
 ## Phase 7: Presentation
 
 - [x] Write short artist statement
-- [x] Prepare demo instructions
-- [ ] Decide installation framing (dark room, altar, desk, headphones)
-
----
-
-## Optional Extensions
-
-- [ ] Multi-user memory
-- [ ] Conflicting philosophical schools
-- [ ] Whispered responses only
-- [ ] Agent begs for desire before rejecting it
+- [x] Prepare demo instructionss
