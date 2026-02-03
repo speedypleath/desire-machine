@@ -69,14 +69,6 @@ class EngineConfig:
     voice: VoiceConfig | None = None
     llm: LLMConfig | None = None
 
-    # Session persistence
-    save_session: bool = True
-    session_file: str = ".desire_engine_session.json"
-
-    # Logging
-    verbose: bool = True  # Print state changes
-    show_internal_state: bool = True  # Display state after each interaction
-
     def __post_init__(self):
         """Initialize nested configs if not provided."""
         if self.thresholds is None:

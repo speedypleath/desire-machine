@@ -8,6 +8,7 @@ import logging
 import re
 from pathlib import Path
 from typing import Optional, Tuple
+
 import ollama
 
 from .state import AgentState, InteractionType
@@ -55,8 +56,7 @@ class DesireAgent:
         self.mode = config.mode
         self.base_identity = _IDENTITY_BY_MODE[config.mode]
 
-        self._session_path = Path(config.session_file)
-        self._state = AgentState.load(self._session_path) or AgentState()
+        self._state = AgentState()
         self._detector = EndStateDetector(
             liberation_knowledge=config.thresholds.liberation_knowledge,
             liberation_desire=config.thresholds.liberation_desire,
@@ -149,11 +149,6 @@ class DesireAgent:
     def get_final_utterance(self, end_state: EndStateCondition) -> str:
         """Get the final words for a reached end state."""
         return end_state.get_final_utterance(self._state.to_dict())
-
-    def save_session(self):
-        """Persist current state to disk."""
-        if self.config.save_session:
-            self._state.save(self._session_path)
 
     @property
     def detachment_level(self) -> float:

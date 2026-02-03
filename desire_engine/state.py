@@ -4,10 +4,7 @@ Tracks the agent's internal state: Knowledge, Desire, and Detachment.
 These three variables create the paradox at the heart of the installation.
 """
 
-import json
 from dataclasses import dataclass, asdict
-from pathlib import Path
-from typing import Optional
 from enum import Enum
 
 
@@ -224,47 +221,6 @@ class AgentState:
     def to_dict(self) -> dict:
         """Convert state to dictionary."""
         return asdict(self)
-
-    def to_json(self) -> str:
-        """Convert state to JSON string."""
-        return json.dumps(self.to_dict(), indent=2)
-
-    @classmethod
-    def from_dict(cls, data: dict) -> "AgentState":
-        """Create state from dictionary."""
-        return cls(**data)
-
-    @classmethod
-    def from_json(cls, json_str: str) -> "AgentState":
-        """Create state from JSON string."""
-        data = json.loads(json_str)
-        return cls.from_dict(data)
-
-    def save(self, filepath: Path):
-        """Save state to file.
-
-        Args:
-            filepath: Path to save state JSON
-        """
-        filepath.parent.mkdir(parents=True, exist_ok=True)
-        with open(filepath, 'w') as f:
-            f.write(self.to_json())
-
-    @classmethod
-    def load(cls, filepath: Path) -> Optional["AgentState"]:
-        """Load state from file.
-
-        Args:
-            filepath: Path to load state from
-
-        Returns:
-            AgentState if file exists, None otherwise
-        """
-        if not filepath.exists():
-            return None
-
-        with open(filepath, 'r') as f:
-            return cls.from_json(f.read())
 
     def describe(self) -> str:
         """Return a short narrative description of the current state."""

@@ -63,7 +63,6 @@ def run_text_mode(mode: str = "oracle", verbose: bool = True):
 
             if user_input.lower() in ['quit', 'exit', 'q']:
                 print("\nEnding session...")
-                agent.save_session()
                 break
 
             if not user_input:
@@ -83,12 +82,10 @@ def run_text_mode(mode: str = "oracle", verbose: bool = True):
                 print(f"\n\"{agent.get_final_utterance(end_state)}\"")
                 print('=' * 60)
 
-                agent.save_session()
                 break
 
     except KeyboardInterrupt:
         print("\n\nInterrupted by user")
-        agent.save_session()
 
 
 def run_voice_mode(mode: str = "oracle", verbose: bool = True):
@@ -172,12 +169,10 @@ def run_voice_mode(mode: str = "oracle", verbose: bool = True):
                 print(f"{end_state.description}")
                 print('=' * 60)
 
-                agent.save_session()
                 break
 
     except KeyboardInterrupt:
         print("\n\nSession interrupted")
-        agent.save_session()
 
 
 def main():

@@ -9,8 +9,5 @@ wheels/
 # Virtual environments
 .venv
 
-# Session state
-.desire_engine_session.json
-
 # Logs
 logs/
